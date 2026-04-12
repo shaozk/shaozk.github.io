@@ -1,0 +1,5 @@
+# mac
+.DS_store
+
+# jekyll
+_site
