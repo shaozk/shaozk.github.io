@@ -1,5 +1,5 @@
 # mac
 .DS_store
 
-# jekyll
-_site
+# tabi
+public/
