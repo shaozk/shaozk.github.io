@@ -1,0 +1,8 @@
+theme = "tabi"
+title = "shaozk's blog"
+
+[markdown.highlighting]
+theme = "catppuccin-frappe"
+style = "class"
+
+

@@ -1,0 +1,155 @@
++++
+title = "Ejemplos de Markdown"
+date = 2023-01-31
+updated = 2026-06-10
+description = "Esta publicación muestra algunos ejemplos de formato Markdown, incluyendo una tabla, bloques de código y etiquetas, citas, tablas y notas al pie de página."
+
+[taxonomies]
+tags = ["markdown", "funcionalidad"]
+
+[extra]
+katex = true
+social_media_card = "social_cards/es_blog_markdown.jpg"
++++
+
+## $\KaTeX$
+
+[$\KaTeX$](https://katex.org/) es una biblioteca rápida y fácil de usar que permite la representación de notación matemática utilizando sintaxis LaTeX.
+
+Puedes usar $\KaTeX$ **en línea** al envolver la expresión entre `$` o entre `\\(` y `\\)`.
+
+Por ejemplo, `$ \sin(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n + 1)!} x^{2n + 1} $` se mostraría como: $ \sin(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n + 1)!} x^{2n + 1} $
+
+Para mostrar la expresión **en su propia línea y centrada**, envuélvela entre `$$` o entre `\\[` y `\\]`.
+
+Por ejemplo, `\\[ r = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(y_i - \bar{y})^2}} \\]` se mostraría como: \\[ r = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(y_i - \bar{y})^2}} \\]
+
+Activa $\KaTeX$ añadiendo `katex = true` en `[extra]`:
+
+```toml,hl_lines=5-6
+title = "Probando KaTeX"
+date = 2002-11-30
+
+[extra]
+katex = true
+```
+
+Funciona en: encabezado de página, `_index.md` de sección, o globalmente en `config.toml`.
+
+Para un mejor rendimiento y seguridad, el JavaScript, CSS y las fuentes de $\KaTeX$ se alojan localmente.
+
+**Nota**: Después de habilitar $\KaTeX$, si deseas usar \$ sin representar una expresión matemática, escápalo con una sola barra invertida: `\$`.
+
+### Fórmulas químicas
+
+Las fórmulas químicas están soportadas mediante la [extensión mhchem](https://mhchem.github.io/MathJax-mhchem/), que se carga automáticamente al usar `\ce{}` o `\pu{}`.
+
+`\ce{}` para química: $\ce{H2O}$, $\ce{CO2 + H2O -> H2CO3}$
+
+`\pu{}` para unidades: $\pu{25 °C}$, $\pu{1.2 mol/L}$
+
+## Tabla
+
+Aquí tienes un ejemplo de una tabla[^1]. Los colores cambian dependiendo del tema actual.
+
+| Símbolo | Elemento | Número atómico |
+|---------|----------|----------------|
+| H       | Hidrógeno| 1              |
+| C       | Carbono  | 6              |
+| Fe      | Hierro   | 26             |
+| Au      | Oro      | 79             |
+
+## Bloque de código
+
+```rust
+fn main() {
+    println!("¡Hola, mundo!") -> ();
+}
+```
+
+### Con números de línea
+
+```rust,linenos
+use std::collections::HashMap;
+
+#[derive(Debug)]
+struct TwinPeaksCharacter {
+    name: String,
+    coffee_rating: f32,
+    pie_preference: String,
+}
+
+fn main() {
+    let mut black_lodge = HashMap::new();
+
+    black_lodge.insert("agent", TwinPeaksCharacter {
+        name: String::from("Dale Cooper"),
+        coffee_rating: 9999.99,
+        pie_preference: String::from("Damn Fine Cherry"),
+    });
+
+    black_lodge.insert("giant", TwinPeaksCharacter {
+        name: String::from("The Fireman"),
+        coffee_rating: 42.424242,
+        pie_preference: String::from("Garmonbozia"),
+    });
+
+    // Calculate total appreciation of damn fine coffee
+    let total_coffee: f32 = black_lodge.values()
+        .map(|character| character.coffee_rating)
+        .sum();
+
+    println!("☕ Total coffee appreciation: {:.2} cups", total_coffee);
+}
+```
+
+## Etiquetas de código
+
+En Rust, declaras una variable mutable con `let mut x = 5;`, mientras que en Python, simplemente usas `x = 5`. De manera similar, para imprimir un valor en Rust, utilizarías `println!("Valor: {}", x);`, pero en Python, es tan sencillo como `print(f"Valor: {x}")`.
+
+## Cita
+
+> «A mí me sobra el cuerpo, Orfeo, me sobra el cuerpo porque me falta alma.»
+>
+> — Miguel de Unamuno, Niebla
+
+## Alertas estilo GitHub
+
+Configurar `github_alerts = true` en la sección `[markdown]` de tu `config.toml` (requiere Zola 0.21+) activa las [alertas estilo GitHub](https://docs.github.com/es/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts):
+
+```markdown
+> [!NOTE]
+> ¡Esto es una nota!
+>
+> Puede ocupar varios párrafos.
+
+> [!CAUTION]
+> ¡Ten cuidado antes de continuar!
+```
+
+El resultado es:
+
+> [!NOTE]
+> ¡Esto es una nota!
+>
+> Puede ocupar varios párrafos.
+
+> [!CAUTION]
+> ¡Ten cuidado antes de continuar!
+
+Los tipos de alerta disponibles son `NOTE`, `TIP`, `IMPORTANT`, `WARNING` y `CAUTION`.
+
+Las etiquetas se traducen automáticamente según el idioma de la página. Para cambiarlas (o añadir un idioma que falte), sobreescribe las variables CSS `--alert-{tipo}-label` con [CSS personalizado](@/blog/mastering-tabi-settings/index.es.md#estilos-css-personalizados):
+
+```css
+html:lang(eo) {
+    --alert-note-label: "Noto";
+    --alert-caution-label: "Atentu";
+}
+```
+
+Para tener control total sobre el título, el icono y los colores, consulta el [shortcode de advertencias](@/blog/shortcodes/index.es.md#advertencias).
+
+---
+
+[^1]: ¡Y aquí tienes un ejemplo de una nota al pie de página!
