@@ -1,4 +1,5 @@
 theme = "tabi"
+base_url = "https://shaozk.github.io/"
 title = "shaozk's blog"
 
 [markdown.highlighting]
