@@ -1,6 +1,6 @@
 theme = "tabi"
 base_url = "https://shaozk.github.io/"
-title = "Home"
+title = "shaozk's blog"
 
 taxonomies = [
   { name = "categories", feed = true },

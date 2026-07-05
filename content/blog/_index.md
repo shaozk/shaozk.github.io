@@ -1,4 +1,4 @@
 +++
 title = "Blog"
-sort_by = "permalink"
+sort_by = "date"
 +++
