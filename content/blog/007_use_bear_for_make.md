@@ -3,7 +3,7 @@ title = "使用 Bear 生成 compile_commands.json"
 date = "2026-07-12"
 
 [taxonomies]
-tags = ["memory"]
+tags = ["bear", "tool"]
 +++
 
 最近使用 Helix 写 C++ ，为了实现在代码间快速导航，需要在 CMake 构建时额外增加选项 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 来自动生成 compile_commands.json 文件。
