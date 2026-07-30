@@ -3,7 +3,7 @@ title = "C++ 最烦人的解析"
 date = "2026-07-22"
 
 [taxonomies]
-tags = ["c++", "源码阅读"]
+tags = ["c++"]
 +++
 
 https://github.com/p-ranav/cgol/blob/master/include/cgol/utils.hpp#L19
