@@ -16,12 +16,12 @@ style = "class"
 comments = true
 
 [extra.giscus]
-enabled_for_all_posts = false
+enabled_for_all_posts = true
 automatic_loading = true
 repo = "shaozk/shaozk.github.io"
 repo_id = "R_kgDONGjemA"
 category = "Announcements"
-category_id = "DIC_kwDONGjemM4DBOA"
+category_id = "DIC_kwDONGjemM4DBOA9"
 mapping = "slug"
 strict_title_matching = 1  # 1 to enable, 0 to disable.
 enable_reactions = 1  # 1 to enable, 0 to disable.
