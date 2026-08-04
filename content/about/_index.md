@@ -8,3 +8,4 @@ template = "info-page.html"
 
 00 后古法程序员。
 
+有人在等伞，而我在等雨停。
