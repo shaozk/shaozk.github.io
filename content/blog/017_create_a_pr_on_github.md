@@ -23,7 +23,7 @@ tags = ["github", "git"]
     ```bash
     git push origin fix_example_typos
     ```
-5. 在 Github 上发起 PR 申请
+5. 在 Github 上发起 PR 申请，等待 review
 6. 设置 upstream 为原仓库地址
     ```bash
     git remote add upstream https://github.com/yhirose/cpp-httplib.git
