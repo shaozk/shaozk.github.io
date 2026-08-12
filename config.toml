@@ -1,12 +1,22 @@
 theme = "tabi"
 base_url = "https://shaozk.github.io/"
-title = "shaozk's blog"
+title = "shaozk"
 
 taxonomies = [
   { name = "categories", feed = true },
   { name = "tags", feed = true },
   { name = "series", feed = true }
 ]
+
+default_language = "en"
+build_search_index = true
+
+[search]
+index_format = "elasticlunr_json" # Or the less efficient "elasticlunr_javascript".
+include_title = true
+include_description = true
+include_path = true
+include_content = true
 
 [markdown.highlighting]
 theme = "catppuccin-frappe"
@@ -15,6 +25,7 @@ style = "class"
 [extra]
 comments = true
 katex = true
+toc = true
 
 [extra.giscus]
 enabled_for_all_posts = true
