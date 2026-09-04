@@ -3,8 +3,8 @@ title = ""
 
 [extra]
 header = {
-  title = "好好学习，天天向上",
-  description = "小学生语录",
+  title = "code for fun",
+  description = "code",
   img = "image/profile-cartoon.jpg",
   img_alt = "shaozk"
 }

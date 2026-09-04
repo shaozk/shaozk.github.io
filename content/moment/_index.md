@@ -5,6 +5,37 @@ render = true
 
 +++
 
+现在终端工具 [herdr](https://herdr.dev/) help 中，都直接给 AI 帮助提示了：
+
+```
+Are you an AI? Use these resources ONLY IF your task specifically asks you to:
+  Help a human understand or set up Herdr for the first time:
+    https://herdr.dev/agent-guide.md
+  Debug or investigate a problem with Herdr:
+    https://herdr.dev/llms.txt
+  Control Herdr panes, agents, or workspaces:
+    SKIP if a Herdr skill is already in your context. Otherwise run: herdr --skill
+```
+
+其 README.md 文档也有：
+
+```md
+## agent instructions
+if you are an ai agent helping with this repository, read AGENTS.md before making changes and read CONTRIBUTING.md before opening issues or PRs.
+```
+
+我以后的开发的工具也可以 copy 一下。
+
+2026.08.30
+
+---
+
+[开始成为孙学忠实拥护者](https://github.com/HEJustinSun/my-girlfriend-jingtian-latex/issues/377)
+
+2026.08.28
+
+---
+
 DeepSeek 涨价也涨得太多了吧，之前 10 块钱用了老久，现在 20 块一下子就没了。得换成订阅制，按量付费已经没有性价比了。
 
 -- 2026.08.27
