@@ -26,6 +26,11 @@ style = "class"
 comments = true
 katex = true
 toc = true
+socials = [
+    { name = "github", url = "https://github.com/shaozk", icon = "github" },
+]
+remote_repository_url = "https://github.com/shaozk/shaozk.github.io"
+email = "OTEzNjY3Njc4QHFxLmNvbQ=="  # base64 of 913667678@qq.com
 allowed_domains = [
     { directive = "font-src", domains = ["'self'", "data:"] },
     { directive = "img-src", domains = ["'self'", "https://*", "data:"] },
