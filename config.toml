@@ -26,6 +26,15 @@ style = "class"
 comments = true
 katex = true
 toc = true
+allowed_domains = [
+    { directive = "font-src", domains = ["'self'", "data:"] },
+    { directive = "img-src", domains = ["'self'", "https://*", "data:"] },
+    { directive = "media-src", domains = ["'self'", "https://cdn.jsdelivr.net/"] },
+    { directive = "script-src", domains = ["'self'"] },
+    { directive = "style-src", domains = ["'self'"] },
+    { directive = "frame-src", domains = ["player.vimeo.com", "https://www.youtube-nocookie.com"] },
+    { directive = "connect-src", domains = ["shaozk.goatcounter.com"] },
+]
 
 [extra.giscus]
 enabled_for_all_posts = true
