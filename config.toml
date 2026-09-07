@@ -1,6 +1,8 @@
 theme = "tabi"
 base_url = "https://shaozk.github.io/"
 title = "shaozk"
+author = "shaozk"
+generate_feeds = true
 
 taxonomies = [
   { name = "categories", feed = true },
@@ -26,6 +28,7 @@ style = "class"
 comments = true
 katex = true
 toc = true
+full_content_in_feed = true
 socials = [
     { name = "github", url = "https://github.com/shaozk", icon = "github" },
 ]
