@@ -42,3 +42,7 @@ light_theme = "noborder_light"
 dark_theme = "noborder_dark"
 lang = "zh-CN"  # Leave blank to match the page's language.
 lazy_loading = true
+
+[extra.analytics]
+service = "goatcounter"
+id = "shaozk"
