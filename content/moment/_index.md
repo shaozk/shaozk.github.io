@@ -5,9 +5,34 @@ render = true
 
 +++
 
+
+现在都有专门的 GitHub 项目互赞平台 [GithubStarMate](https://www.githubstarmate.com/) 了，WTF?
+
+-- 2026.09.11
+
+---
+
+更新博客站点：
+
+* 增加 GitHub 链接
+* 增加邮箱链接
+* 增加阅读量统计（[GoatCounter](https://www.goatcounter.com/)）
+* 增加 RSS 订阅
+
+-- 2026.09.08
+
+---
+
+力扣题没做出来是最大的输家:(
+
+在找到工作之前，我再也不会做不出任何一到力扣题了。
+
+-- 2026.09.07
+
+---
+
 现在终端工具 [herdr](https://herdr.dev/) help 中，都直接给 AI 帮助提示了：
 
-```
 Are you an AI? Use these resources ONLY IF your task specifically asks you to:
   Help a human understand or set up Herdr for the first time:
     https://herdr.dev/agent-guide.md
@@ -15,14 +40,10 @@ Are you an AI? Use these resources ONLY IF your task specifically asks you to:
     https://herdr.dev/llms.txt
   Control Herdr panes, agents, or workspaces:
     SKIP if a Herdr skill is already in your context. Otherwise run: herdr --skill
-```
 
 其 README.md 文档也有：
 
-```md
-## agent instructions
 if you are an ai agent helping with this repository, read AGENTS.md before making changes and read CONTRIBUTING.md before opening issues or PRs.
-```
 
 我以后的开发的工具也可以 copy 一下。
 
