@@ -41,7 +41,7 @@ allowed_domains = [
     { directive = "script-src", domains = ["'self'"] },
     { directive = "style-src", domains = ["'self'"] },
     { directive = "frame-src", domains = ["player.vimeo.com", "https://www.youtube-nocookie.com"] },
-    { directive = "connect-src", domains = ["shaozk.goatcounter.com"] },
+    { directive = "connect-src", domains = ["shaozk.goatcounter.com", "gh-calendar.rschristian.dev"] },
 ]
 
 [extra.giscus]

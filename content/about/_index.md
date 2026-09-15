@@ -27,6 +27,11 @@ template = "info-page.html"
 * 有人在等伞，而我在等雨停。
 
 
+## GitHub 热力图
+
+{{ gh_heatmap() }}
+
+
 ## 友情链接
 
 None
