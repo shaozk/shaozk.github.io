@@ -32,6 +32,11 @@ template = "info-page.html"
 {{ gh_heatmap() }}
 
 
+## 微信读书热力图
+
+{{ weread_heatmap() }}
+
+
 ## 友情链接
 
 None

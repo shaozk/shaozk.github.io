@@ -1,0 +1,38 @@
+name: Update WeRead stats
+
+on:
+  schedule:
+    - cron: '30 21 * * *'  # 北京时间每天 05:30
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v6.0.1
+
+      - name: setup python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: fetch weread stats
+        run: python3 scripts/weread_stats.py
+        env:
+          WEREAD_API_KEY: ${{ secrets.WEREAD_API_KEY }}
+
+      - name: commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add static/weread-stats.json
+          if git diff --cached --quiet; then
+            echo "无数据变化，跳过提交"
+          else
+            git commit -m "chore: 更新微信读书热力图数据"
+            git push
+          fi
