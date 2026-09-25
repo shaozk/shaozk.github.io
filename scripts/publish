@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+"""将 draft/ 中的草稿编号并移动到 content/blog/。
+
+用法:
+    ./scripts/publish            交互选择要发布的草稿
+    ./scripts/publish --all      选择全部草稿（仍需确认）
+    ./scripts/publish --dry-run  仅预览，不实际移动
+"""
+
+import argparse
+import re
+import shutil
+import sys
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+DRAFT_DIR = REPO_ROOT / "draft"
+BLOG_DIR = REPO_ROOT / "content" / "blog"
+
+LANG_SUFFIX_RE = re.compile(r"\.[A-Za-z]{2,3}(?:-[A-Za-z0-9]+)*$")
+NUMBER_PREFIX_RE = re.compile(r"^(\d+)_")
+
+
+def split_language(stem: str) -> tuple[str, str | None]:
+    match = LANG_SUFFIX_RE.search(stem)
+    if match:
+        return stem[: match.start()], match.group(0)[1:]
+    return stem, None
+
+
+def to_snake_case(name: str) -> str:
+    name = re.sub(r"[-\s]+", "_", name.lower())
+    name = re.sub(r"\W", "", name, flags=re.UNICODE)
+    return re.sub(r"_+", "_", name).strip("_")
+
+
+def collect_drafts() -> list[tuple[str, dict[str | None, Path]]]:
+    groups: dict[str, dict[str | None, Path]] = {}
+    for path in sorted(DRAFT_DIR.glob("*.md")):
+        base, lang = split_language(path.stem)
+        groups.setdefault(base, {})[lang] = path
+    return sorted(groups.items())
+
+
+def next_blog_number() -> int:
+    max_num = 0
+    for path in BLOG_DIR.glob("*.md"):
+        match = NUMBER_PREFIX_RE.match(path.stem)
+        if match:
+            max_num = max(max_num, int(match.group(1)))
+    return max_num + 1
+
+
+def parse_selection(raw: str, count: int) -> list[int]:
+    picked: list[int] = []
+    for token in re.split(r"[,\s]+", raw.strip()):
+        if not token:
+            continue
+        if not token.isdigit() or not 1 <= int(token) <= count:
+            sys.exit(f"错误: 无效序号 {token!r}（有效范围 1-{count}）")
+        if int(token) not in picked:
+            picked.append(int(token))
+    if not picked:
+        sys.exit("错误: 未选择任何文章。")
+    return picked
+
+
+def build_moves(
+    groups: list[tuple[str, dict[str | None, Path]]], picked: list[int], start_num: int
+) -> tuple[list[tuple[Path, Path]], list[tuple[Path, Path]]]:
+    moves: list[tuple[Path, Path]] = []
+    conflicts: list[tuple[Path, Path]] = []
+    num = start_num
+    for index in picked:
+        base, files = groups[index - 1]
+        snake = to_snake_case(base)
+        if not snake:
+            print(f"警告: 跳过 [{index}] {base}.md，文件名转换后为空")
+            continue
+        for lang, src in sorted(files.items(), key=lambda item: item[0] or ""):
+            suffix = f".{lang}" if lang else ""
+            dst = BLOG_DIR / f"{num:03d}_{snake}{suffix}.md"
+            if dst.exists():
+                conflicts.append((src, dst))
+            else:
+                moves.append((src, dst))
+        num += 1
+    return moves, conflicts
+
+
+def rel(path: Path) -> Path:
+    try:
+        return path.relative_to(REPO_ROOT)
+    except ValueError:
+        return path
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="将 draft/ 中的草稿编号并移动到 content/blog/"
+    )
+    parser.add_argument("--all", action="store_true", help="发布全部草稿（跳过选择）")
+    parser.add_argument("--dry-run", action="store_true", help="仅预览，不实际移动")
+    args = parser.parse_args()
+
+    if not DRAFT_DIR.is_dir():
+        sys.exit(f"错误: 草稿目录不存在: {DRAFT_DIR}")
+    if not BLOG_DIR.is_dir():
+        sys.exit(f"错误: 博客目录不存在: {BLOG_DIR}")
+
+    groups = collect_drafts()
+    if not groups:
+        print("draft/ 下没有草稿，无需发布。")
+        return
+
+    num = next_blog_number()
+    print("Draft 文章:")
+    for index, (base, files) in enumerate(groups, start=1):
+        names = " + ".join(path.name for path in sorted(files.values()))
+        print(f"  [{index}] {names}")
+    print(f"下一编号: {num:03d}")
+
+    if args.all:
+        picked = list(range(1, len(groups) + 1))
+    else:
+        try:
+            raw = input("选择要发布的文章（如 1,2，输入顺序即编号顺序；回车取消）: ")
+        except (EOFError, KeyboardInterrupt):
+            print("\n已取消。")
+            return
+        if not raw.strip():
+            print("已取消。")
+            return
+        picked = parse_selection(raw, len(groups))
+
+    moves, conflicts = build_moves(groups, picked, num)
+    for src, dst in conflicts:
+        print(f"跳过 {rel(src)}: 目标已存在 {rel(dst)}")
+    if not moves:
+        print("没有可移动的文件。")
+        return
+
+    print("\n预览:")
+    for src, dst in moves:
+        print(f"  {rel(src)} → {rel(dst)}")
+
+    if args.dry_run:
+        print("(dry-run，未实际移动)")
+        return
+
+    try:
+        answer = input("确认执行? (y/N): ")
+    except (EOFError, KeyboardInterrupt):
+        answer = ""
+    if not answer.strip().lower().startswith("y"):
+        print("已取消。")
+        return
+
+    failed: list[Path] = []
+    for src, dst in moves:
+        try:
+            if dst.exists():
+                raise FileExistsError(f"目标已存在: {rel(dst)}")
+            shutil.move(src, dst)
+            print(f"已移动 {rel(src)} → {rel(dst)}")
+        except OSError as exc:
+            print(f"错误: 移动 {rel(src)} 失败: {exc}")
+            failed.append(src)
+
+    summary = f"完成: 成功移动 {len(moves) - len(failed)} 个文件"
+    if failed:
+        print(f"{summary}，{len(failed)} 个失败。")
+        sys.exit(1)
+    print(f"{summary}。")
+
+
+if __name__ == "__main__":
+    main()
