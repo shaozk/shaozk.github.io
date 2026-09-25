@@ -1,5 +1,9 @@
 # mac
 .DS_store
 
+# python
+__pycache__/
+*.pyc
+
 # tabi
 public/

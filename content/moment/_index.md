@@ -5,6 +5,11 @@ render = true
 
 +++
 
+现在程序员找工作都需要测 mbti 么？话说程序员不就本来在这方面要没有优势？
+
+-- 2026.09.21
+
+---
 
 现在都有专门的 GitHub 项目互赞平台 [GithubStarMate](https://www.githubstarmate.com/) 了，WTF?
 
