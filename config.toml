@@ -29,6 +29,16 @@ comments = true
 katex = true
 toc = true
 full_content_in_feed = true
+stylesheets = ["css/photo.css"]
+menu = [
+    { name = "blog", url = "blog", trailing_slash = true },
+    { name = "moment", url = "moment", trailing_slash = true },
+    { name = "photo", url = "photo", trailing_slash = true },
+    { name = "project", url = "project", trailing_slash = true },
+    { name = "archive", url = "archive", trailing_slash = true },
+    { name = "tags", url = "tags", trailing_slash = true },
+    { name = "about", url = "about", trailing_slash = true },
+]
 socials = [
     { name = "github", url = "https://github.com/shaozk", icon = "github" },
 ]

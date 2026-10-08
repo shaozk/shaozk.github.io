@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+{{ macros_page_header::page_header(title=section.title) }}
+
+<div id="page-content">
+    <main>
+        {%- if section.content -%}
+            {{ section.content | safe }}
+        {%- endif -%}
+
+        {%- set_global photo_has_images = false -%}
+        {%- for asset in section.assets -%}
+            {%- if asset is matching("[.](?i)(jpg|jpeg|png|webp|gif|avif)$") -%}
+                {%- set_global photo_has_images = true -%}
+            {%- endif -%}
+        {%- endfor -%}
+
+        {%- if photo_has_images -%}
+        <div class="photo-grid">
+            {%- for asset in section.assets -%}
+                {%- if asset is matching("[.](?i)(jpg|jpeg|png|webp|gif|avif)$") -%}
+                    {%- set filename = asset | split(pat="/") | last -%}
+                    {%- set caption = filename | split(pat=".") | first -%}
+                    {%- set meta = get_image_metadata(path=asset, allow_missing=true) -%}
+                    {%- set thumb = resize_image(path=asset, width=800, op="fit_width") -%}
+                    <a class="photo-item" href="{{ section.permalink }}{{ filename }}" data-caption="{{ caption }}">
+                        <img src="{{ thumb.url }}" alt="{{ caption }}"
+                            {% if meta.width %}width="{{ meta.width }}"{% endif %}
+                            {% if meta.height %}height="{{ meta.height }}"{% endif %}
+                            loading="lazy" />
+                    </a>
+                {%- endif -%}
+            {%- endfor -%}
+        </div>
+        {%- else -%}
+        <p class="photo-empty">还没有照片，把图片放进 <code>content/photo/</code> 即可。</p>
+        {%- endif -%}
+    </main>
+</div>
+
+<div class="photo-lightbox" id="photo-lightbox" hidden>
+    <button class="photo-lightbox__close" type="button" aria-label="关闭">&times;</button>
+    <figure class="photo-lightbox__figure">
+        <img class="photo-lightbox__img" src="" alt="" />
+        <figcaption class="photo-lightbox__caption"></figcaption>
+    </figure>
+</div>
+
+<script defer src="{{ get_url(path='js/photo-lightbox.js') }}"></script>
+
+{%- include "partials/extra_features.html" -%}
+
+{% endblock main_content %}
