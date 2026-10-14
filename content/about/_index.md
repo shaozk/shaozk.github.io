@@ -3,12 +3,12 @@ title = "About"
 template = "info-page.html"
 +++
 
-我是程序员 shaozk，专注于 C++ 和 Python 开发。
+我是程序员 shaozk，专注于 C++ 和 Python 开发，希望有一天能够去腾讯工作。
+
+这里不仅仅是一个博客站点，也包括我的开发的一些小项目、小玩具。
 
 
-## 人生经历
-
-> 人生很短，且活且珍惜
+## 人生很短，且活且珍惜
 
 * 德赛西威 2022.07-2025.05
 * 湖南理工学院 2018.09-2022.06
@@ -39,4 +39,4 @@ template = "info-page.html"
 
 ## 友情链接
 
-None
+[Minghan的博客](https://jiangmmh.github.io/)
