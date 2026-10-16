@@ -5,7 +5,7 @@ template = "info-page.html"
 
 我是程序员 shaozk，专注于 C++ 和 Python 开发，希望有一天能够去腾讯工作。
 
-这里不仅仅是一个博客站点，也包括我的开发的一些小项目、小玩具。
+这里不仅仅是一个博客站点，也包括我开发的一些小项目，以及一些状态。
 
 
 ## 人生很短，且活且珍惜
@@ -27,12 +27,9 @@ template = "info-page.html"
 * 有人在等伞，而我在等雨停。
 
 
-## GitHub 热力图
+## 热力图
 
 {{ gh_heatmap() }}
-
-
-## 微信读书热力图
 
 {{ weread_heatmap() }}
 
@@ -40,3 +37,4 @@ template = "info-page.html"
 ## 友情链接
 
 [Minghan的博客](https://jiangmmh.github.io/)
+[老贝](https://smarietvan.github.io/)
