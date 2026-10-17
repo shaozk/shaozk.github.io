@@ -1,5 +1,6 @@
 +++
 title = "调用其他 Shell 脚本的函数"
+description = ""
 date = "2026-10-14"
 
 [taxonomies]

@@ -1,5 +1,6 @@
 +++
 title = "阅读 cgol 源码"
+description = ""
 date = "2026-07-22"
 
 [taxonomies]

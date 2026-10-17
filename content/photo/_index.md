@@ -1,5 +1,6 @@
 +++
 title = "Photo"
+description = ""
 template = "photo.html"
 sort_by = "none"
 +++

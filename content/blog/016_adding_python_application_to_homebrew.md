@@ -1,5 +1,6 @@
 +++
 title = "添加 Python 应用到 Homebrew"
+description = ""
 date = "2026-08-05"
 
 [taxonomies]

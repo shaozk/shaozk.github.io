@@ -1,5 +1,6 @@
 +++
 title = "什么是 Agentic AI？AI 如何从 Chatbot 演化成 Co-Worker？【译】"
+description = ""
 date = "2026-08-06"
 
 [taxonomies]

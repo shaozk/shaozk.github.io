@@ -1,5 +1,6 @@
 +++
 title = "使用 herdr 替代 tmux"
+description = ""
 date = "2026-07-30"
 
 [taxonomies]

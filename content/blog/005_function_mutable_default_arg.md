@@ -1,5 +1,6 @@
 +++
 title = "Python 可变默认参数陷阱"
+description = ""
 date = "2026-07-07"
 
 [taxonomies]

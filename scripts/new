@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""在 draft/ 下新建一篇带 Zola 表头的草稿。
+
+用法:
+    ./scripts/new <名称>
+"""
+
+import argparse
+import re
+import sys
+from datetime import date
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+DRAFT_DIR = REPO_ROOT / "draft"
+
+TEMPLATE = """+++
+title = ""
+description = ""
+date = "{date}"
+
+[taxonomies]
+tags = []
++++
+"""
+
+
+def to_snake_case(name: str) -> str:
+    name = re.sub(r"[-\s]+", "_", name.lower())
+    name = re.sub(r"\W", "", name, flags=re.UNICODE)
+    return re.sub(r"_+", "_", name).strip("_")
+
+
+def rel(path: Path) -> Path:
+    try:
+        return path.relative_to(REPO_ROOT)
+    except ValueError:
+        return path
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="在 draft/ 下新建一篇草稿")
+    parser.add_argument(
+        "name", nargs="+", help="文章名称，将转换为 snake_case 文件名"
+    )
+    args = parser.parse_args()
+
+    snake = to_snake_case(" ".join(args.name))
+    if not snake:
+        sys.exit(f"错误: 名称 {args.name!r} 转换后为空，无法作为文件名")
+
+    dst = DRAFT_DIR / f"{snake}.md"
+    if dst.exists():
+        sys.exit(f"错误: 文件已存在: {rel(dst)}")
+
+    DRAFT_DIR.mkdir(parents=True, exist_ok=True)
+    dst.write_text(TEMPLATE.format(date=date.today().isoformat()), encoding="utf-8")
+    print(f"已创建 {rel(dst)}")
+
+
+if __name__ == "__main__":
+    main()

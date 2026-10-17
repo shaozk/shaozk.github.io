@@ -1,5 +1,6 @@
 +++
 title = "使用 Bear 生成 compile_commands.json"
+description = ""
 date = "2026-07-12"
 
 [taxonomies]

@@ -1,5 +1,6 @@
 +++
 title = "About"
+description = ""
 template = "info-page.html"
 +++
 
